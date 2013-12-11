@@ -9,8 +9,8 @@ Vagrant::configure("2") do |config|
 
         allict.vm.hostname = "allict.dev"
         allict.vm.network :private_network, ip: "33.33.33.10"
-        allict.vm.synced_folder ".", "/var/www/vhosts/allict.dev/", :nfs => false
-        allict.vm.synced_folder "./../jiggy-api", "/var/www/vhosts/api.allict.dev/", :nfs => false
+        allict.vm.synced_folder "./../jiggy", "/var/www/vhosts/jiggy.dev/", :nfs => false
+        allict.vm.synced_folder "./../jiggy-api", "/var/www/vhosts/api.jiggy.dev/", :nfs => false
 
         # Here we customize our virtualbox provider. If there are others, add them accordingly below
         allict.vm.provider :virtualbox do |vbox|

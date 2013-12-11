@@ -24,14 +24,14 @@ node default {
 
     # Set up project
     class { "allict::project::www" :
-        name => "allict.dev",
-        docroot => "/var/www/vhosts/allict.dev/httpdocs/",
+        name => "jiggy.dev",
+        docroot => "/var/www/vhosts/jiggy.dev/httpdocs/",
         port => 80,
     }
 
     class { "allict::project::api" :
-        name => "api.allict.dev",
-        docroot => "/var/www/vhosts/api.allict.dev/httpdocs/",
+        name => "api.jiggy.dev",
+        docroot => "/var/www/vhosts/api.jiggy.dev/public/",
         port => 80,
     }
 
