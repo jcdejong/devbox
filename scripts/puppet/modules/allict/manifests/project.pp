@@ -1,6 +1,6 @@
 class allict::project($docroot = "/vagrant/httpdocs/", $port = 80) {
 
-    file { "allict.dev":
+    file { "vhost":
         path    => "/etc/httpd/conf.d/${name}.conf",
         owner   => 'root',
         group   => 'root',
