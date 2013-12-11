@@ -41,6 +41,20 @@ class allict::setup {
         mode    => 0644,
     }
 
+    # Fix date/time
+    package { "ntp" :
+        ensure => present,
+    }
+    file { "ntp-cron" :
+        path    => "/etc/cron.d/ntp",
+        content => "0       *       *       *       *       root    /usr/sbin/ntpdate ntp0.nl.net > /dev/null",
+        owner   => "root",
+        group   => "root",
+        mode    => 0644,
+        ensure => present,
+        require => Package['ntp'],
+    }
+
     # Make sure cron is running
     service { 'crond':
       ensure  => running,
