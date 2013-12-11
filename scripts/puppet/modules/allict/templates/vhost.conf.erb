@@ -1,0 +1,20 @@
+#
+# File Managed by Puppet. Do not modify
+#
+
+<VirtualHost *:<%= port %>>
+    ServerAdmin webmaster@<%= name %>
+
+    DocumentRoot <%= docroot %>
+
+    ServerName <%= name %>
+
+    <Directory <%= docroot %>>
+        Options -Indexes FollowSymLinks -MultiViews
+        AllowOverride All
+    </Directory>
+
+    ErrorLog /var/log/httpd/<%= name %>-error_log
+    CustomLog /var/log/httpd/<%= name %>-access_log common
+
+</VirtualHost>
