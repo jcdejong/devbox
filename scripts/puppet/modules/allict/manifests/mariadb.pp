@@ -3,6 +3,9 @@ class allict::mariadb() {
     # Enable the repository
     file { 'mariadb-repo' :
         path    => '/etc/yum.repos.d/MariaDB.repo',
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0644',
         source  => '/vagrant/scripts/puppet/modules/allict/files/mariadb.repo',
         ensure  => present,
     }
