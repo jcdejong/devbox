@@ -23,9 +23,15 @@ node default {
     class { "allict::memcached" : }
 
     # Set up project
-    class { "allict::project" :
+    class { "allict::project::www" :
         name => "allict.dev",
-        docroot => "/vagrant/httpdocs/",
+        docroot => "/var/www/vhosts/allict.dev/httpdocs/",
+        port => 80,
+    }
+
+    class { "allict::project::api" :
+        name => "api.allict.dev",
+        docroot => "/var/www/vhosts/api.allict.dev/httpdocs/",
         port => 80,
     }
 

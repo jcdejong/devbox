@@ -41,6 +41,17 @@ class allict::web($xdebug = false) {
         notify  => Service["httpd"],
     }
 
+    # Enable multiple vhosts
+    file { 'apache-vhosts' :
+        path    => '/etc/httpd/conf.d/000_ports.conf',
+        content => 'NameVirtualHost *:80',
+        ensure  => present,
+        require => [
+            Package['apache'],
+        ],
+        notify  => Service["httpd"],
+    }
+
     # Custom php config
     file { 'php-conf' :
         path    => '/etc/php.d/allict.ini',

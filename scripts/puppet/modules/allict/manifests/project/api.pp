@@ -1,6 +1,6 @@
-class allict::project($docroot = "/vagrant/httpdocs/", $port = 80) {
+class allict::project::api($docroot = "/vagrant/httpdocs/", $port = 80) {
 
-    file { "vhost":
+    file { "vhost-api":
         path    => "/etc/httpd/conf.d/${name}.conf",
         owner   => 'root',
         group   => 'root',
