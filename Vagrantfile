@@ -16,9 +16,13 @@ Vagrant::configure("2") do |config|
         allict.vm.provider :virtualbox do |vbox|
             vbox.gui = false
 
+            vbox.memory = 1024
+
             vbox.customize [
-                'modifyvm', :id, '--chipset', 'ich9',               # solves kernel panic issue on some host machines
-                '--uartmode1', 'file', 'C:\\base6-console.log'      # uncomment to change log location on Windows
+                'modifyvm', :id,
+                '--chipset', 'ich9',               # solves kernel panic issue on some host machines
+                '--uartmode1', 'file', 'C:\\base6-console.log',     # uncomment to change log location on Windows
+                '--cpuexecutioncap', '50'          # no matter how much CPU is used in the VM, no more than 50% would be used on your own host machine
             ]
         end
 

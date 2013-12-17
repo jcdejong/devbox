@@ -101,6 +101,13 @@ class allict::web($xdebug = false) {
         notify  => Service['httpd'],
     }
 
+    file { "/var/lib/php/session" :
+        owner  => "root",
+        group  => "vagrant",
+        mode   => 0770,
+        require => Package["php"],
+    }
+
     if $xdebug {
         package { "xdebug" :
             name   => "php53u-pecl-xdebug",

@@ -27,16 +27,19 @@ node default {
         name => "jiggy.dev",
         docroot => "/var/www/vhosts/jiggy.dev/httpdocs/",
         port => 80,
+        language => "nl",
     }
 
     class { "allict::project::api" :
         name => "api.jiggy.dev",
         docroot => "/var/www/vhosts/api.jiggy.dev/public/",
         port => 80,
+        language => "nl",
     }
 
     class { "allict::project::database" :
-        dbname => "jiggy_wordpress_fr",
+        dbname => "jiggy_wordpress",
+        language => "nl",
     }
 
 }

@@ -1,4 +1,4 @@
-class allict::project::database($dbname = "jiggy_wordpress") {
+class allict::project::database($dbname = "jiggy_wordpress", $language = "nl") {
 
     exec { 'create-db':
         unless => "/usr/bin/mysql -uroot ${dbname}",
@@ -7,7 +7,7 @@ class allict::project::database($dbname = "jiggy_wordpress") {
     }
 
     exec { 'import-init-data':
-        command => "/usr/bin/mysql -uroot ${dbname} < /var/www/vhosts/api.jiggy.dev/data/db/jiggy_wordpress_fr-init.sql",
+        command => "/usr/bin/mysql -uroot ${dbname} < /var/www/vhosts/api.jiggy.dev/data/db/jiggy_wordpress_${language}-init.sql",
         require => Exec["create-db"],
     }
 }

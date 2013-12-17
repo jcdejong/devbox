@@ -1,4 +1,4 @@
-class allict::project::www($docroot = "/vagrant/httpdocs/", $port = 80) {
+class allict::project::www($docroot = "/vagrant/httpdocs/", $port = 80, $language = "nl") {
 
     file { "vhost-www":
         path    => "/etc/httpd/conf.d/${name}.conf",
@@ -29,7 +29,7 @@ class allict::project::www($docroot = "/vagrant/httpdocs/", $port = 80) {
         require => [
             Package['apache'],
         ],
-        source => '/var/www/vhosts/jiggy.dev/httpdocs/wp-config.php.svn.fr',
+        source => "/var/www/vhosts/jiggy.dev/httpdocs/wp-config.php.svn.${language}",
     }
 
     #\27 is a single quote.. I had some problems escaping everything ;)
@@ -66,7 +66,7 @@ class allict::project::www($docroot = "/vagrant/httpdocs/", $port = 80) {
 
     #set jiggy.dev and api.jiggy.dev in hosts-file
     exec { "/bin/echo '127.0.0.1    api.jiggy.dev jiggy.dev' >> /etc/hosts":
-        onlyif => "/usr/bin/test `/bin/grep 'jiggy.dev' '/etc/hosts' | /usr/bin/wc -l` -ne 0",
+        onlyif => "/usr/bin/test `/bin/grep 'jiggy.dev' '/etc/hosts' | /usr/bin/wc -l` -ne 1",
     }
 
 /*
@@ -78,7 +78,7 @@ class allict::project::www($docroot = "/vagrant/httpdocs/", $port = 80) {
         require => [
             Package['apache'],
         ],
-        source => '/var/www/vhosts/jiggy.dev/httpdocs/wp-content/w3-total-cache-config.php.fr',
+        source => "/var/www/vhosts/jiggy.dev/httpdocs/wp-content/w3-total-cache-config.php.${language}",
     }
 */
 }

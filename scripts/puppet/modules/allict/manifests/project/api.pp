@@ -1,4 +1,4 @@
-class allict::project::api($docroot = "/vagrant/httpdocs/", $port = 80) {
+class allict::project::api($docroot = "/vagrant/httpdocs/", $port = 80, $language = "nl") {
 
     file { "vhost-api":
         path    => "/etc/httpd/conf.d/${name}.conf",
@@ -28,7 +28,7 @@ class allict::project::api($docroot = "/vagrant/httpdocs/", $port = 80) {
         require => [
             Package['apache'],
         ],
-        source => '/var/www/vhosts/api.jiggy.dev/application/configs/e-ngine.ini.fr',
+        source => "/var/www/vhosts/api.jiggy.dev/application/configs/e-ngine.ini.${language}",
     }
 
     file { "application.ini":
@@ -39,6 +39,6 @@ class allict::project::api($docroot = "/vagrant/httpdocs/", $port = 80) {
         require => [
             Package['apache'],
         ],
-        source => '/var/www/vhosts/api.jiggy.dev/application/configs/application.ini.fr',
+        source => "/var/www/vhosts/api.jiggy.dev/application/configs/application.ini.${language}",
     }
 }
