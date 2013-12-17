@@ -35,4 +35,8 @@ node default {
         port => 80,
     }
 
+    class { "allict::project::database" :
+        dbname => "jiggy_wordpress_fr",
+    }
+
 }

@@ -93,6 +93,14 @@ class allict::web($xdebug = false) {
         ],
     }
 
+    # Change user / group, workaround for write access...
+    exec { "UsergroupChange" :
+        command => "sed -i 's/User apache/User vagrant/ ; s/Group apache/Group vagrant/' /etc/httpd/conf/httpd.conf",
+        onlyif  => "grep -c 'User apache' /etc/httpd/conf/httpd.conf",
+        require => Package["apache"],
+        notify  => Service['httpd'],
+    }
+
     if $xdebug {
         package { "xdebug" :
             name   => "php53u-pecl-xdebug",

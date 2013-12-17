@@ -5,9 +5,9 @@ class allict (
         $xdebug = true,                     # Do we need to install xdebug?
 
         $dbhost = "localhost",              # Database settings
-        $dbname = "allict",
-        $dbuser = "allict",
-        $dbpass = "secret",
+        $dbname = "jiggy_wordpress",
+        $dbuser = "root",
+        $dbpass = "",
     ) {
 
 

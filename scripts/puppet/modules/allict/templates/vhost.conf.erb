@@ -9,6 +9,8 @@
 
     ServerName <%= name %>
 
+    SetEnv APPLICATION_ENV "development"
+
     <Directory <%= docroot %>>
         Options -Indexes FollowSymLinks -MultiViews
         AllowOverride All
