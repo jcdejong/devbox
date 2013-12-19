@@ -17,4 +17,8 @@ vagrant up
 - use memcached?
 - set up dbdeploy
 - upgrade wordpress ;)
--
+- fix hostname, so you don't have to change activemq.pid.location manually :)
+- to use nfs, you need to do install some things first on your basebox unfortunately:
+  vagrant ssh
+  sudo yum install -y nfs-utils nfs-common portmap
+  vagrant reload

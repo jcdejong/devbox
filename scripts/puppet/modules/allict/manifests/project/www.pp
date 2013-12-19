@@ -13,19 +13,16 @@ class allict::project::www($docroot = "/vagrant/httpdocs/", $port = 80, $languag
     }
 
     file { ['jiggy-logs']:
-        path   => '/var/www/vhosts/jiggy.dev/logs',
+        path   => '/var/log/jiggy/',
         ensure => 'directory',
         owner  => 'vagrant',
         group  => 'apache',
-        mode   => 775,
+        mode    => '775',
         require => Package['apache'],
     }
 
     file { "wp-config.php":
         path    => "/var/www/vhosts/jiggy.dev/httpdocs/wp-config.php",
-        owner   => 'root',
-        group   => 'root',
-        mode    => '0644',
         require => [
             Package['apache'],
         ],
@@ -55,7 +52,7 @@ class allict::project::www($docroot = "/vagrant/httpdocs/", $port = 80, $languag
     }
 
     exec { 'jiggy-update-wp':
-        command => "/usr/bin/php /var/www/vhosts/api.jiggy.dev/tools/cacli.php wp:setup --env=development wp:setup -wpurl=http://jiggy.dev -apiurl=http://api.jiggy.dev -logdir=/var/www/vhosts/jiggy.dev/logs --quiet",
+        command => "/usr/bin/php /var/www/vhosts/api.jiggy.dev/tools/cacli.php wp:setup --env=development wp:setup -wpurl=http://jiggy.dev -apiurl=http://api.jiggy.dev -logdir=/var/log/jiggy --quiet",
         require => [
             Package['apache'],
             File['jiggy-logs'],
@@ -72,9 +69,6 @@ class allict::project::www($docroot = "/vagrant/httpdocs/", $port = 80, $languag
 /*
     file { "w3-total-cache-config.php":
         path    => "/var/www/vhosts/jiggy.dev/httpdocs/wp-content/w3-total-cache-config.php",
-        owner  => 'vagrant',
-        group  => 'apache',
-        mode    => '775',
         require => [
             Package['apache'],
         ],
