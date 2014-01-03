@@ -38,7 +38,7 @@ class allict::project::www($docroot = "/vagrant/httpdocs/", $port = 80, $languag
     }
 
     exec { "/bin/sed -i -e's/\\x27DB_PASSWORD\\x27, \\x27\\(.*\\)\\x27/\\x27DB_PASSWORD\\x27, \\x27\\x27/' '/var/www/vhosts/jiggy.dev/httpdocs/wp-config.php'":
-        onlyif => "/usr/bin/test `/bin/grep 'DB_PASSWORD' '/var/www/vhosts/jiggy.dev/httpdocs/wp-config.php'| grep 'root' | /usr/bin/wc -l` -ne 1",
+        onlyif => "/usr/bin/test `/bin/grep 'DB_PASSWORD' '/var/www/vhosts/jiggy.dev/httpdocs/wp-config.php'| grep \"''\" | /usr/bin/wc -l` -ne 1",
         require => [
             File['wp-config.php'],
         ],
