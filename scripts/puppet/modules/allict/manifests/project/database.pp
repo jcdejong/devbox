@@ -24,7 +24,10 @@ class allict::project::database($dbname = "jiggy_wordpress", $language = "nl") {
 
     exec { 'simple-dbdeploy':
         command => "/usr/bin/php /var/www/vhosts/api.jiggy.dev/tools/simple-dbdeploy.php --env=vagrant",
-        require => Exec["impot-init-changelog"],
+        require => [
+		Exec["impot-init-changelog"],
+		Package['php'],
+	],
         logoutput => true,
     }
 }
