@@ -31,7 +31,7 @@ class allict::web($xdebug = false) {
         "php53u-mcrypt", "php53u-xmlrpc", "php53u-xml", "php53u-soap", "php53u-pear", "php-pear-Net-URL",
         "php-pear-Net-Socket", "php-pear-Net-FTP", "php-pear-Net-SMTP", "php-pear-Net-DIME",
         "php-pear-Mail-mimeDecode", "php-pear-Mail-Mime", "php-pear-Mail", "php-pear-HTTP-Request",
-        "php-pear-MDB2-Driver-mysql", "pcre-devel", "zlib-devel", "libmemcached", "libmemcached-devel",
+        "php-pear-MDB2-Driver-mysql", "pcre-devel", "zlib-devel", "libmemcached10", "libmemcached10-devel",
         "php53u-pecl-apc", "php53u-pecl-memcached", "php53u-pecl-memcache",
     ]
     package { $web_packages :
