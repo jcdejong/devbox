@@ -52,7 +52,7 @@ class allict::project::www($docroot = "/vagrant/httpdocs/", $port = 80, $languag
     }
 
     exec { 'jiggy-update-wp':
-        command => "/usr/bin/php /var/www/vhosts/api.jiggy.dev/tools/cacli.php wp:setup --env=development wp:setup -wpurl=http://jiggy.dev -apiurl=http://api.jiggy.dev -logdir=/var/log/jiggy --quiet",
+        command => "/usr/bin/php /var/www/vhosts/api.jiggy.dev/tools/cacli.php wp:setup --env=vagrant wp:setup -wpurl=http://jiggy.dev -apiurl=http://api.jiggy.dev -logdir=/var/log/jiggy --quiet",
         require => [
             Package['apache'],
             File['jiggy-logs'],
