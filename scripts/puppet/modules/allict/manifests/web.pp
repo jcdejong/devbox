@@ -18,7 +18,7 @@ class allict::web($xdebug = false) {
 
     # Install PHP
     package { "php" :
-        name   => "php53u",
+        name   => "php",
         ensure => present,
         require => [
             File['ius-repo'],
@@ -27,12 +27,12 @@ class allict::web($xdebug = false) {
 
     # Install some default packages
     $web_packages = [
-        "httpd-devel", "php53u-imap", "php53u-cli", "php53u-process", "php53u-mysql", "php53u-devel", "php53u-gd",
-        "php53u-mcrypt", "php53u-xmlrpc", "php53u-xml", "php53u-soap", "php53u-pear", "php-pear-Net-URL",
+        "httpd-devel", "php-imap", "php-cli", "php-process", "php-mysql", "php-devel", "php-gd",
+        "php-mcrypt", "php-xmlrpc", "php-xml", "php-soap", "php-pear", "php-pear-Net-URL",
         "php-pear-Net-Socket", "php-pear-Net-FTP", "php-pear-Net-SMTP", "php-pear-Net-DIME",
         "php-pear-Mail-mimeDecode", "php-pear-Mail-Mime", "php-pear-Mail", "php-pear-HTTP-Request",
-        "php-pear-MDB2-Driver-mysql", "pcre-devel", "zlib-devel", "libmemcached10", "libmemcached10-devel",
-        "php53u-pecl-apc", "php53u-pecl-memcached", "php53u-pecl-memcache",
+        "php-pear-MDB2-Driver-mysql", "pcre-devel", "zlib-devel", "libmemcached", "libmemcached-devel",
+        "php-pecl-apc", "php-pecl-memcached", "php-pecl-memcache",
     ]
     package { $web_packages :
         ensure  => present,
@@ -110,7 +110,7 @@ class allict::web($xdebug = false) {
 
     if $xdebug {
         package { "xdebug" :
-            name   => "php53u-pecl-xdebug",
+            name   => "php-pecl-xdebug",
             ensure => present,
             require => [
                 Package['php'],

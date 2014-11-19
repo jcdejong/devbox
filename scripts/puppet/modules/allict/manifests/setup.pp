@@ -22,6 +22,10 @@ class allict::setup {
         creates =>  "/etc/yum.repos.d/epel.repo",
         require => Exec['epel-rpm'],
     }
+    exec { "epel-workaround" :
+    	command => "sed -i \"s/mirrorlist=https/mirrorlist=http/\" /etc/yum.repos.d/epel.repo",
+    	require => Exec["epel-repo"],
+    }
 
     # Install some default packages
     $default_packages = [
@@ -29,7 +33,7 @@ class allict::setup {
     ]
     package { $default_packages :
         ensure => present,
-        require => Exec['epel-repo'],
+        require => Exec['epel-workaround'],
     }
 
     package { "java-1.6.0-openjdk" :

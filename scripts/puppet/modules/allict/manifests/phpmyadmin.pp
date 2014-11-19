@@ -5,7 +5,7 @@ class allict::phpmyadmin {
         ensure  => present,
         require => [
             Package['php'],
-            Exec['epel-rpm'],
+            Exec['epel-workaround'],
         ],
     }
 
