@@ -23,11 +23,18 @@ class allict::phpmyadmin {
     }
 
     # Setup our own phpmyadmin configuration file
-    file { "/etc/phpMyAdmin/config.inc.php" :
+    file { "/usr/share/phpMyAdmin/config.inc.php" :
         source  => "/vagrant/scripts/puppet/modules/allict/files/phpmyadmin.conf",
         owner   => 'root',
         group   => 'root',
         mode    => '0644',
+        require => Package["phpMyAdmin"]
+    }
+    
+    # somehow the default locations for config.inc.php are not read.. so workaround :)
+    exec { "phpmyadmin-config-workaround" :
+        command => "sed -i.bak \"s/\\['AllowNoPassword'\\] = false/\\['AllowNoPassword'\\] = true/g\" /usr/share/phpMyAdmin/libraries/config.default.php",
+        creates =>  "/usr/share/phpMyAdmin/libraries/config.default.php.bak",
         require => Package["phpMyAdmin"]
     }
 }
