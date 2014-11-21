@@ -1,5 +1,8 @@
 # Jiggy Dev Box
 
+## Install vbguests plugin for vagrant:
+vagrant plugin install vagrant-vbguest
+
 ## Startup your Vagrant box
 vagrant up
 
@@ -14,12 +17,10 @@ vagrant up
 - PHPMyAdmin is running as alias, so you can open it as http://jiggy.dev/phpmyadmin
 
 ## ToDo
-- use memcached?
-- set up dbdeploy (change 61+)
-- upgrade wordpress ;)
 - fix hostname, so you don't have to change activemq.pid.location manually :)
 - to use nfs, you need to do install some things first on your basebox unfortunately:
   vagrant ssh
   sudo yum install -y nfs-utils nfs-common portmap
   vagrant reload
 - jeroen.dev.jiggy.nl aanmaken :)
+- use memcached?

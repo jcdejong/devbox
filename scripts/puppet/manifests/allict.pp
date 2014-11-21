@@ -38,7 +38,7 @@ node default {
     }
 
     class { "allict::project::database" :
-        dbname => "jiggy_wordpress_nl",
+        dbname => "jiggy_wordpress",
         language => "nl",
     }
 
