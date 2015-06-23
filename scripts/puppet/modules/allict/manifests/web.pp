@@ -18,7 +18,7 @@ class allict::web($xdebug = false) {
 
     # Install PHP
     package { "php" :
-        name   => "php",
+        name   => "php56u",
         ensure => present,
         require => [
             File['ius-repo'],
@@ -27,12 +27,10 @@ class allict::web($xdebug = false) {
 
     # Install some default packages
     $web_packages = [
-        "httpd-devel", "php-imap", "php-cli", "php-process", "php-mysql", "php-devel", "php-gd",
-        "php-mcrypt", "php-xmlrpc", "php-xml", "php-soap", "php-pear", "php-pear-Net-URL",
-        "php-pear-Net-Socket", "php-pear-Net-FTP", "php-pear-Net-SMTP", "php-pear-Net-DIME",
-        "php-pear-Mail-mimeDecode", "php-pear-Mail-Mime", "php-pear-Mail", "php-pear-HTTP-Request",
-        "php-pear-MDB2-Driver-mysql", "pcre-devel", "zlib-devel", "libmemcached", "libmemcached-devel",
-        "php-pecl-apc", "php-pecl-memcached", "php-pecl-memcache",
+        "httpd-devel", "php56u-imap", "php56u-cli", "php56u-process", "php56u-mysql", "php56u-devel", "php56u-gd",
+        "php56u-mcrypt", "php56u-xmlrpc", "php56u-xml", "php56u-soap", "php56u-pear",
+        "pcre-devel", "zlib-devel", "libmemcached", "libmemcached-devel",
+        "php56u-opcache.x86_64", "php56u-pecl-memcached", "php56u-pecl-memcache",
     ]
     package { $web_packages :
         ensure  => present,
@@ -69,7 +67,7 @@ class allict::web($xdebug = false) {
     }
 
     # Custom php config
-    file { 'php-conf' :
+    file { 'php56u-conf' :
         path    => '/etc/php.d/allict.ini',
         owner   => 'root',
         group   => 'root',
@@ -110,7 +108,7 @@ class allict::web($xdebug = false) {
 
     if $xdebug {
         package { "xdebug" :
-            name   => "php-pecl-xdebug",
+            name   => "php56u-pecl-xdebug",
             ensure => present,
             require => [
                 Package['php'],
