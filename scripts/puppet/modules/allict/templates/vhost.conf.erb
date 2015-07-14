@@ -20,3 +20,27 @@
     CustomLog /var/log/httpd/<%= name %>-access_log common
 
 </VirtualHost>
+
+<VirtualHost *:<%= sslport %>>
+    ServerAdmin webmaster@jiggy.dev
+
+    DocumentRoot <%= docroot %>
+
+    ServerName <%= name %>
+
+    SetEnv APPLICATION_ENV "vagrant"
+
+    <Directory <%= docroot %>>
+        Options -Indexes FollowSymLinks -MultiViews
+        AllowOverride All
+    </Directory>
+
+    ErrorLog /var/log/httpd/<%= name %>-error_log
+    CustomLog /var/log/httpd/<%= name %>-access_log common
+
+    SSLEngine on
+    SSLProtocol All -SSLv2 -SSLv3
+    SSLCertificateFile /etc/httpd/ssl/ssl.jiggy.dev.crt
+    SSLCertificateKeyFile /etc/httpd/ssl/ssl.jiggy.dev.key
+
+</VirtualHost>

@@ -27,6 +27,7 @@ node default {
         name => "jiggy.dev",
         docroot => "/var/www/vhosts/jiggy.dev/httpdocs/",
         port => 80,
+        sslport => 443,
         language => "nl",
     }
 
@@ -34,6 +35,7 @@ node default {
         name => "api.jiggy.dev",
         docroot => "/var/www/vhosts/api.jiggy.dev/public/",
         port => 80,
+        sslport => 443,
         language => "nl",
     }
 

@@ -17,8 +17,8 @@ class allict::web($xdebug = false) {
     }
 
     # Install PHP
-    package { "php" :
-        name   => "php",
+    package { "php56u" :
+        name   => "php56u",
         ensure => present,
         require => [
             File['ius-repo'],
@@ -27,18 +27,15 @@ class allict::web($xdebug = false) {
 
     # Install some default packages
     $web_packages = [
-        "httpd-devel", "php-imap", "php-cli", "php-process", "php-mysql", "php-devel", "php-gd",
-        "php-mcrypt", "php-xmlrpc", "php-xml", "php-soap", "php-pear", "php-pear-Net-URL",
-        "php-pear-Net-Socket", "php-pear-Net-FTP", "php-pear-Net-SMTP", "php-pear-Net-DIME",
-        "php-pear-Mail-mimeDecode", "php-pear-Mail-Mime", "php-pear-Mail", "php-pear-HTTP-Request",
-        "php-pear-MDB2-Driver-mysql", "pcre-devel", "zlib-devel", "libmemcached", "libmemcached-devel",
-        "php-pecl-apc", "php-pecl-memcached", "php-pecl-memcache",
+        "mod_ssl", "httpd-devel", "php56u-imap", "php56u-cli", "php56u-process", "php56u-mysqlnd", "php56u-devel", "php56u-gd",
+        "php56u-mcrypt", "php56u-xmlrpc", "php56u-xml", "php56u-soap", "php56u-pear", "pcre-devel", "zlib-devel",
+        "libmemcached10", "libmemcached10-devel", "php56u-opcache", "php56u-pecl-memcached", "php56u-pecl-memcache",
     ]
     package { $web_packages :
         ensure  => present,
         require => [
             Package['apache'],
-            Package['php'],
+            Package['php56u'],
         ],
         notify  => Service["httpd"],
     }
@@ -78,7 +75,7 @@ class allict::web($xdebug = false) {
         ensure  => present,
         require => [
             Package['apache'],
-            Package['php'],
+            Package['php56u'],
         ],
         notify  => Service["httpd"],
     }
@@ -105,7 +102,15 @@ class allict::web($xdebug = false) {
         owner  => "root",
         group  => "vagrant",
         mode   => 0770,
-        require => Package["php"],
+        require => Package["php56u"],
+    }
+
+    # enable SSL
+    exec { "mod_ssl" :
+        command => "echo 'NameVirtualHost *:443' >> /etc/httpd/conf.d/000_ports.conf",
+        onlyif  => "grep -c '443' /etc/httpd/conf.d/000_ports.conf",
+        require => Package["apache"],
+        notify  => Service['httpd'],
     }
 
     if $xdebug {
@@ -113,7 +118,7 @@ class allict::web($xdebug = false) {
             name   => "php-pecl-xdebug",
             ensure => present,
             require => [
-                Package['php'],
+                Package['php56u'],
                 Package['apache'],
             ],
             notify  => Service["httpd"],
