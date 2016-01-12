@@ -36,11 +36,6 @@ class allict::setup {
         require => Exec['epel-workaround'],
     }
 
-    package { "java-1.6.0-openjdk" :
-        name => "java-1.6.0-openjdk",
-        ensure => present,
-    }
-
     # Setup timezone
     file { "timezone" :
         path    => "/etc/localtime",

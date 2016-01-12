@@ -10,7 +10,7 @@ node default {
 
     # Include our web server
     class { "allict::web" :
-        xdebug => false,
+        xdebug => true,
     }
 
     # Include our database server
@@ -23,23 +23,20 @@ node default {
     class { "allict::memcached" : }
 
     # Set up project
-    class { "allict::project::www" :
-        name => "jiggy.dev",
-        docroot => "/var/www/vhosts/jiggy.dev/httpdocs/",
+    class { "allict::project::winlabel" :
+        name => "dev.wineenreisnaar.nl",
+        docroot => "/var/www/vhosts/dev.wineenreisnaar.nl/httpdocs/",
         port => 80,
         language => "nl",
     }
 
-    class { "allict::project::api" :
-        name => "api.jiggy.dev",
-        docroot => "/var/www/vhosts/api.jiggy.dev/public/",
+    class { "allict::project::campaigntracker" :
+        name => "dev.campaigntracker.nl",
+        docroot => "/var/www/vhosts/dev.campaigntracker.nl/httpdocs/",
         port => 80,
         language => "nl",
     }
 
-    class { "allict::project::database" :
-        dbname => "jiggy_wordpress",
-        language => "nl",
-    }
+    class { "allict::project::database" : }
 
 }
