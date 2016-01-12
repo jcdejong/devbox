@@ -13,5 +13,6 @@ vagrant up
 - Apache runs as vagrant, therefor it has write access to all files. So make notes of things you need write access to!
 - Currently every time you run vagrant provision, the wp-config.php and database will be reset.
 - PHPMyAdmin is running as alias, so you can open it as http://<domain>/phpmyadmin
+- Default CT login is probably admin / Welkom11 ;)
 
 ## ToDo

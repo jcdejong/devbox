@@ -12,6 +12,11 @@ class allict::project::campaigntracker($docroot = "/vagrant/httpdocs/", $port = 
         notify  => Service["httpd"],
     }
 
+    #set host in hostfile
+    exec { "/bin/echo '127.0.0.1    dev.campaigntracker.nl' >> /etc/hosts":
+        onlyif => "/usr/bin/test `/bin/grep 'dev.campaigntracker.nl' '/etc/hosts' | /usr/bin/wc -l` -ne 1",
+    }
+
     file { "application.ini":
         path    => "/var/www/vhosts/dev.campaigntracker.nl/application/configs/application.ini",
         require => [

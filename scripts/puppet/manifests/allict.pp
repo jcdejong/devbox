@@ -23,16 +23,16 @@ node default {
     class { "allict::memcached" : }
 
     # Set up project
-    class { "allict::project::winlabel" :
-        name => "dev.wineenreisnaar.nl",
-        docroot => "/var/www/vhosts/dev.wineenreisnaar.nl/httpdocs/",
+    class { "allict::project::campaigntracker" :
+        name => "dev.campaigntracker.nl",
+        docroot => "/var/www/vhosts/dev.campaigntracker.nl/httpdocs/",
         port => 80,
         sslport => 443,
     }
 
-    class { "allict::project::campaigntracker" :
-        name => "dev.campaigntracker.nl",
-        docroot => "/var/www/vhosts/dev.campaigntracker.nl/httpdocs/",
+    class { "allict::project::wineenreis" :
+        name => "dev.wineenreisnaar.nl",
+        docroot => "/var/www/vhosts/dev.wineenreisnaar.nl/httpdocs/",
         port => 80,
         sslport => 443,
     }
