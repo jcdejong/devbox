@@ -27,7 +27,7 @@ class allict::web($xdebug = false) {
 
     # Install some default packages
     $web_packages = [
-        "httpd-devel", "php-imap", "php-cli", "php-process", "php-mysql", "php-devel", "php-gd",
+        "mod_ssl", "httpd-devel", "php-imap", "php-cli", "php-process", "php-mysql", "php-devel", "php-gd",
         "php-mcrypt", "php-xmlrpc", "php-xml", "php-soap", "php-pear", "php-pear-Net-URL",
         "php-pear-Net-Socket", "php-pear-Net-FTP", "php-pear-Net-SMTP", "php-pear-Net-DIME",
         "php-pear-Mail-mimeDecode", "php-pear-Mail-Mime", "php-pear-Mail", "php-pear-HTTP-Request",
@@ -60,7 +60,7 @@ class allict::web($xdebug = false) {
     # Enable multiple vhosts
     file { 'apache-vhosts' :
         path    => '/etc/httpd/conf.d/000_ports.conf',
-        content => 'NameVirtualHost *:80',
+        content => "NameVirtualHost *:80\nNameVirtualHost *:443",
         ensure  => present,
         require => [
             Package['apache'],

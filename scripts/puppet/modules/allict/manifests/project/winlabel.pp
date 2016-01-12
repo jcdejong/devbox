@@ -1,4 +1,4 @@
-class allict::project::winlabel($docroot = "/vagrant/httpdocs/", $port = 80, $language = "nl") {
+class allict::project::winlabel($docroot = "/vagrant/httpdocs/", $port = 80, $sslport = 443) {
 
     file { "vhost-winlabel":
         path    => "/etc/httpd/conf.d/${name}.conf",

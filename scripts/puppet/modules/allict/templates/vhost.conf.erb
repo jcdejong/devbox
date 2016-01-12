@@ -3,8 +3,6 @@
 #
 
 <VirtualHost *:<%= port %>>
-    ServerAdmin webmaster@<%= name %>
-
     DocumentRoot <%= docroot %>
 
     ServerName <%= name %>
@@ -19,4 +17,25 @@
     ErrorLog /var/log/httpd/<%= name %>-error_log
     CustomLog /var/log/httpd/<%= name %>-access_log common
 
+</VirtualHost>
+
+<VirtualHost *:<%= sslport %>>
+    DocumentRoot <%= docroot %>
+
+    ServerName <%= name %>
+
+    SetEnv APPLICATION_ENV "vagrant"
+
+    <Directory <%= docroot %>>
+        Options -Indexes FollowSymLinks -MultiViews
+        AllowOverride All
+    </Directory>
+
+    ErrorLog /var/log/httpd/<%= name %>-error_log
+    CustomLog /var/log/httpd/<%= name %>-access_log common
+
+    SSLEngine on
+    SSLProtocol All -SSLv2 -SSLv3
+    SSLCertificateFile /vagrant/scripts/puppet/modules/allict/files/<%= name %>.crt
+    SSLCertificateKeyFile /vagrant/scripts/puppet/modules/allict/files/<%= name %>.key
 </VirtualHost>

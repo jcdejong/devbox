@@ -27,14 +27,14 @@ node default {
         name => "dev.wineenreisnaar.nl",
         docroot => "/var/www/vhosts/dev.wineenreisnaar.nl/httpdocs/",
         port => 80,
-        language => "nl",
+        sslport => 443,
     }
 
     class { "allict::project::campaigntracker" :
         name => "dev.campaigntracker.nl",
         docroot => "/var/www/vhosts/dev.campaigntracker.nl/httpdocs/",
         port => 80,
-        language => "nl",
+        sslport => 443,
     }
 
     class { "allict::project::database" : }
