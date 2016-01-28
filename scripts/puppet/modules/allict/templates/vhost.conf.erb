@@ -22,8 +22,6 @@
 </VirtualHost>
 
 <VirtualHost *:<%= sslport %>>
-    ServerAdmin webmaster@jiggy.dev
-
     DocumentRoot <%= docroot %>
 
     ServerName <%= name %>
@@ -40,7 +38,7 @@
 
     SSLEngine on
     SSLProtocol All -SSLv2 -SSLv3
-    SSLCertificateFile /etc/httpd/ssl/ssl.jiggy.dev.crt
-    SSLCertificateKeyFile /etc/httpd/ssl/ssl.jiggy.dev.key
+    SSLCertificateFile /vagrant/scripts/puppet/modules/allict/files/dev.jiggy.nl.crt
+    SSLCertificateKeyFile /vagrant/scripts/puppet/modules/allict/files/dev.jiggy.nl.key
 
 </VirtualHost>

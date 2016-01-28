@@ -7,7 +7,7 @@ vagrant plugin install vagrant-vbguest
 vagrant up
 
 ## Add this to your hostfile
-33.33.33.10     jiggy.dev   api.jiggy.dev
+33.33.33.10     dev.jiggy.nl   api.jiggy.dev
 
 ## Notes
 - Apache runs as vagrant, therefor it has write access to all files. So make notes of things you need write access to!

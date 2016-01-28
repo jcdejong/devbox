@@ -24,7 +24,7 @@ node default {
 
     # Set up project
     class { "allict::project::www" :
-        name => "jiggy.dev",
+        name => "dev.jiggy.nl",
         docroot => "/var/www/vhosts/jiggy.dev/httpdocs/",
         port => 80,
         sslport => 443,
