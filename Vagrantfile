@@ -17,8 +17,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         allict.vm.network :private_network, ip: "192.168.33.110"
 
         allict.vm.network "forwarded_port", guest: 80, host: 8080
+        allict.vm.network "forwarded_port", guest: 3306, host: 3500
 
-        allict.vm.synced_folder "./../jiggy", "/var/www/vhosts/jiggy.dev/", :nfs => true
+        allict.vm.synced_folder "./../jiggy", "/var/www/vhosts/dev.jiggy.nl/", :nfs => true
         allict.vm.synced_folder "./../jiggy-api", "/var/www/vhosts/api.jiggy.dev/", :nfs => true
 
         # Here we customize our virtualbox provider. If there are others, add them accordingly below

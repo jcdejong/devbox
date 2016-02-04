@@ -4,7 +4,7 @@ class allict::phpmyadmin {
     package { "phpMyAdmin" :
         ensure  => present,
         require => [
-            Package['php56u'],
+            Package['php'],
             Exec['epel-workaround'],
         ],
     }

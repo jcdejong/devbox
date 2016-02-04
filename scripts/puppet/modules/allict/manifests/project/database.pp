@@ -27,6 +27,7 @@ class allict::project::database($dbname = "jiggy_wordpress", $language = "nl") {
         require => [
             Package['php'],
             Exec["impot-init-changelog"],
+            Service["mysql"],
         ],
         logoutput => true,
     }

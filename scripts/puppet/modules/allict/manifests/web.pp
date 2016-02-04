@@ -17,8 +17,8 @@ class allict::web($xdebug = false) {
     }
 
     # Install PHP
-    package { "php56u" :
-        name   => "php56u",
+    package { "php" :
+        name   => "php55u",
         ensure => present,
         require => [
             File['ius-repo'],
@@ -27,15 +27,15 @@ class allict::web($xdebug = false) {
 
     # Install some default packages
     $web_packages = [
-        "mod_ssl", "httpd-devel", "php56u-imap", "php56u-cli", "php56u-process", "php56u-mysqlnd", "php56u-devel", "php56u-gd",
-        "php56u-mcrypt", "php56u-xmlrpc", "php56u-xml", "php56u-soap", "php56u-pear", "pcre-devel", "zlib-devel",
-        "libmemcached10", "libmemcached10-devel", "php56u-opcache", "php56u-pecl-memcached", "php56u-pecl-memcache",
+        "mod_ssl", "httpd-devel", "php55u-mbstring", "php55u-imap", "php55u-cli", "php55u-process", "php55u-mysqlnd", "php55u-devel", "php55u-gd",
+        "php55u-mcrypt", "php55u-xmlrpc", "php55u-xml", "php55u-soap", "php55u-pear", "pcre-devel", "zlib-devel",
+        "libmemcached10", "libmemcached10-devel", "php55u-opcache", "php55u-pecl-memcached", "php55u-pecl-memcache",
     ]
     package { $web_packages :
         ensure  => present,
         require => [
             Package['apache'],
-            Package['php56u'],
+            Package['php'],
         ],
         notify  => Service["httpd"],
     }
@@ -54,17 +54,6 @@ class allict::web($xdebug = false) {
         notify  => Service["httpd"],
     }
 
-    # Enable multiple vhosts
-    file { 'apache-vhosts' :
-        path    => '/etc/httpd/conf.d/000_ports.conf',
-        content => 'NameVirtualHost *:80',
-        ensure  => present,
-        require => [
-            Package['apache'],
-        ],
-        notify  => Service["httpd"],
-    }
-
     # Custom php config
     file { 'php-conf' :
         path    => '/etc/php.d/allict.ini',
@@ -75,7 +64,7 @@ class allict::web($xdebug = false) {
         ensure  => present,
         require => [
             Package['apache'],
-            Package['php56u'],
+            Package['php55u'],
         ],
         notify  => Service["httpd"],
     }
@@ -102,7 +91,15 @@ class allict::web($xdebug = false) {
         owner  => "root",
         group  => "vagrant",
         mode   => 0770,
-        require => Package["php56u"],
+        require => Package["php55u"],
+    }
+
+    # Enable multiple vhosts
+    exec { "apache-vhosts" :
+        command => "echo 'NameVirtualHost *:80' >> /etc/httpd/conf.d/000_ports.conf",
+        onlyif  => "grep -c '80' /etc/httpd/conf.d/000_ports.conf",
+        require => Package["apache"],
+        notify  => Service['httpd'],
     }
 
     # enable SSL
@@ -118,7 +115,7 @@ class allict::web($xdebug = false) {
             name   => "php-pecl-xdebug",
             ensure => present,
             require => [
-                Package['php56u'],
+                Package['php55u'],
                 Package['apache'],
             ],
             notify  => Service["httpd"],
