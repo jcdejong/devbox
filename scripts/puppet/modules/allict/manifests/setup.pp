@@ -23,6 +23,7 @@ class allict::setup {
         require => Exec['epel-rpm'],
     }
     exec { "epel-workaround" :
+        onlyif => "/usr/bin/test `/bin/grep 'mirrorlist=https' '/etc/yum.repos.d/epel.repo'| grep 'https' | /usr/bin/wc -l` -eq 1",
     	command => "sed -i \"s/mirrorlist=https/mirrorlist=http/\" /etc/yum.repos.d/epel.repo",
     	require => Exec["epel-repo"],
     }

@@ -97,7 +97,7 @@ class allict::web($xdebug = false) {
     # Enable multiple vhosts
     exec { "apache-vhosts" :
         command => "echo 'NameVirtualHost *:80' >> /etc/httpd/conf.d/000_ports.conf",
-        onlyif  => "grep -c '80' /etc/httpd/conf.d/000_ports.conf",
+        onlyif => "/usr/bin/test `/bin/grep '80' '/etc/httpd/conf.d/000_ports.conf'| grep '80' | /usr/bin/wc -l` -eq 0",
         require => Package["apache"],
         notify  => Service['httpd'],
     }
@@ -105,7 +105,7 @@ class allict::web($xdebug = false) {
     # enable SSL
     exec { "mod_ssl" :
         command => "echo 'NameVirtualHost *:443' >> /etc/httpd/conf.d/000_ports.conf",
-        onlyif  => "grep -c '443' /etc/httpd/conf.d/000_ports.conf",
+        onlyif => "/usr/bin/test `/bin/grep '443' '/etc/httpd/conf.d/000_ports.conf'| grep '443' | /usr/bin/wc -l` -eq 0",
         require => Package["apache"],
         notify  => Service['httpd'],
     }

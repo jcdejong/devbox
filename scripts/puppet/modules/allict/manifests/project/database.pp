@@ -1,14 +1,23 @@
 class allict::project::database($dbname = "jiggy_wordpress", $language = "nl") {
 
-    exec { 'create-db':
-        unless => "/usr/bin/mysql -uroot ${dbname}",
-        command => "/usr/bin/mysql -uroot -e \"create database ${dbname};\"",
-        require => Service["mysql"],
+    file { "mysql-config":
+        path    => "/etc/my.cnf.d/server.cnf",
+        owner   => 'root',
+        group   => 'root',
+        require => [
+            Package['MariaDB-server'],
+        ],
+        source => "/vagrant/scripts/puppet/modules/allict/files/mysql.conf",
+        notify  => Service["mysql"],
     }
 
-    exec { 'import-init-data':
-        command => "/usr/bin/mysql -uroot ${dbname} < /var/www/vhosts/api.jiggy.dev/data/db/jiggy_wordpress_${language}-init.sql",
-        require => Exec["create-db"],
+    exec { 'create-db':
+        unless => "/usr/bin/mysql -uroot ${dbname}",
+        command => "zcat /vagrant/dbs/dump.sql.gz | /usr/bin/mysql -uroot",
+        require => [
+            Service["mysql"],
+            File["mysql-config"],
+        ]
     }
 
     exec { 'import-changelog':

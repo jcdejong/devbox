@@ -7,7 +7,7 @@ vagrant plugin install vagrant-vbguest
 vagrant up
 
 ## Add this to your hostfile
-33.33.33.10     dev.jiggy.nl   api.jiggy.dev
+192.168.33.110     dev.jiggy.nl   api.jiggy.dev
 
 ## Notes
 - Apache runs as vagrant, therefor it has write access to all files. So make notes of things you need write access to!
@@ -15,12 +15,8 @@ vagrant up
 - You can change from jiggy.nl to jiggy.fr by changing the language and dbname in /scripts/puppet/manifests/allict.pp
 - Default login is info@jiggy.(nl|fr) with Welkom01 as password
 - PHPMyAdmin is running as alias, so you can open it as http://jiggy.dev/phpmyadmin
+- You could import the SSL certificate using this trick: 
+  http://project.efuture.nl/wiki/it/google-chrome-mac-os-x-and-self-signed-ssl-certificates 
 
 ## ToDo
 - fix hostname, so you don't have to change activemq.pid.location manually :)
-- to use nfs, you need to do install some things first on your basebox unfortunately:
-  vagrant ssh
-  sudo yum install -y nfs-utils nfs-common portmap
-  vagrant reload
-- jeroen.dev.jiggy.nl aanmaken :)
-- use memcached?
